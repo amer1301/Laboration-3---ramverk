@@ -1,30 +1,34 @@
 <template>
-  <article class="card">
-    <img
-      v-if="posterUrl"
-      :src="posterUrl"
-      :alt="movie.title"
-      loading="lazy"
-    />
-    <div class="card__body">
-      <h3>{{ movie.title }}</h3>
-      <p class="card__meta">
-        {{ year }} · Betyg: {{ movie.vote_average?.toFixed(1) ?? "–" }}
-      </p>
-      <p class="card__overview">
-        {{ movie.overview || "Ingen beskrivning tillgänglig." }}
-      </p>
-    </div>
-  </article>
+  <RouterLink
+    :to="{ name: 'tmdb-movie', params: { id: movie.id } }"
+    class="card-link"
+  >
+    <article class="card">
+      <img
+        v-if="posterUrl"
+        :src="posterUrl"
+        :alt="movie.title"
+        loading="lazy"
+      />
+      <div class="card__body">
+        <h3>{{ movie.title }}</h3>
+        <p class="card__meta">
+          {{ year }} · Betyg: {{ movie.vote_average?.toFixed(1) ?? "–" }}
+        </p>
+        <p class="card__overview">
+          {{ movie.overview || "Ingen beskrivning tillgänglig." }}
+        </p>
+      </div>
+    </article>
+  </RouterLink>
 </template>
 
 <script setup>
 import { computed } from "vue";
+import { RouterLink } from "vue-router";
+
 const props = defineProps({
-  movie: {
-    type: Object,
-    required: true,
-  },
+  movie: { type: Object, required: true },
 });
 
 const IMG_BASE = "https://image.tmdb.org/t/p/w342";
@@ -39,13 +43,15 @@ const year = computed(() =>
 </script>
 
 <style scoped>
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+.card-link:hover .card {
+  transform: translateY(-4px);
+}
 .card {
-  background: #0b0b16;
-  border-radius: 0.9rem;
-  overflow: hidden;
-  border: 1px solid #1f2937;
-  display: flex;
-  flex-direction: column;
+  transition: transform 0.15s ease-out;
 }
 .card img {
   width: 100%;
