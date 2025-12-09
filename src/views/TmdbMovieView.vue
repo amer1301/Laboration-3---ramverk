@@ -1,4 +1,5 @@
 <template>
+<!-- Visa bara innehållet om filmen har laddats -->
   <section v-if="movie">
     <button class="back" @click="goBack">← Tillbaka</button>
 
@@ -26,39 +27,85 @@
         </div>
 
         <form class="add-form" @submit.prevent="addToMyList">
-          <h2>Lägg till i min skräckfilmslista</h2>
+  <h2>Lägg till i min skräckfilmslista</h2>
 
-          <div class="field">
-            <label for="rating">Mitt betyg (0–10)</label>
-            <input
-              id="rating"
-              type="number"
-              min="0"
-              max="10"
-              step="0.1"
-              v-model.number="rating"
-              required
-            />
-          </div>
+  <div class="field">
+    <label for="rating">Mitt betyg (0–10)</label>
+    <input
+      id="rating"
+      type="number"
+      min="0"
+      max="10"
+      step="0.1"
+      v-model.number="rating"
+      required
+    />
+  </div>
 
-          <div class="field field--row">
-            <label for="isScary">Jag tycker att filmen är läskig</label>
-            <input id="isScary" type="checkbox" v-model="isScary" />
-          </div>
+  <div class="field">
+    <span class="label">Har sett filmen?</span>
+    <div class="radio-group">
+      <label class="radio-option">
+        <input
+          type="radio"
+          name="seen"
+          :value="true"
+          v-model="seen"
+        />
+        <span>Ja</span>
+      </label>
+      <label class="radio-option">
+        <input
+          type="radio"
+          name="seen"
+          :value="false"
+          v-model="seen"
+        />
+        <span>Nej</span>
+      </label>
+    </div>
+  </div>
 
-          <button type="submit" :disabled="saving">
-            {{ saving ? "Lägger till..." : "Lägg till i min lista" }}
-          </button>
+  <!-- Visa “läskig?” endast om användaren har sett filmen -->
+  <div class="field" v-if="seen">
+    <span class="label">Jag tycker att filmen är läskig</span>
+    <div class="radio-group">
+      <label class="radio-option">
+        <input
+          type="radio"
+          name="isScary"
+          :value="true"
+          v-model="isScary"
+        />
+        <span>Ja</span>
+      </label>
+      <label class="radio-option">
+        <input
+          type="radio"
+          name="isScary"
+          :value="false"
+          v-model="isScary"
+        />
+        <span>Nej</span>
+      </label>
+    </div>
+  </div>
 
-          <p v-if="error" class="error">{{ error }}</p>
-          <p v-if="success" class="success">
-            Filmen lades till! Du skickas snart till listan…
-          </p>
-        </form>
+<!-- Submit-knapp med laddningsstatus -->
+  <button type="submit" :disabled="saving">
+    {{ saving ? "Lägger till..." : "Lägg till i min lista" }}
+  </button>
+
+  <p v-if="error" class="error">{{ error }}</p>
+  <p v-if="success" class="success">
+    Filmen lades till! Du skickas snart till listan…
+  </p>
+</form>
       </div>
     </div>
   </section>
 
+<!-- Om filmen inte hunnit laddas visas fallback-text -->
   <p v-else>Laddar film...</p>
 </template>
 
@@ -66,33 +113,41 @@
 import { ref, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
+// Hämtar routing-verktyg: nuvarande route + router-navigation
 const route = useRoute();
 const router = useRouter();
 
+// API-nyckel + backend-URL
 const tmdbApiKey = import.meta.env.VITE_TMDB_API_KEY;
 const fastifyBase = "https://fastify-laboration2-2.onrender.com";
 
+// Reaktiva states för filmdata och formuläret
 const movie = ref(null);
 const rating = ref(7.0);
+const seen = ref(false);
 const isScary = ref(true);
 const saving = ref(false);
 const error = ref("");
 const success = ref(false);
 
+// Bygger fullständig URL till filmaffischen
 const posterUrl = computed(() =>
   movie.value?.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.value.poster_path}`
     : null
 );
 
+// Hämtar utgivningsåret
 const year = computed(() =>
   movie.value?.release_date ? movie.value.release_date.slice(0, 4) : "Okänt"
 );
 
+// Gå till föregående sida
 function goBack() {
   router.back();
 }
 
+// Hämtar filmens info från TMDb baserat på id i URL
 async function loadMovie() {
   try {
     const id = route.params.id;
@@ -109,6 +164,8 @@ async function loadMovie() {
   }
 }
 
+
+// Skickar filmen till Fastify-API:t och lägger in den i databasen
 async function addToMyList() {
   if (!movie.value) return;
 
@@ -123,10 +180,13 @@ async function addToMyList() {
       body: JSON.stringify({
         title: movie.value.title,
         rating: rating.value,
-        isScary: isScary.value,
+        // Om användaren inte har sett filmen: sätt isScary = false
+        isScary: seen.value ? isScary.value : false,
+        seen: seen.value,
       }),
     });
 
+    // Hantera eventuella backend-fel
     if (!res.ok) {
       const text = await res.text();
       console.error("POST /movies error:", res.status, text);
@@ -135,7 +195,7 @@ async function addToMyList() {
 
     success.value = true;
 
-    // liten delay, sedan till /movies
+// Skicka användaren tillbaka till listan efter en kort delay
     setTimeout(() => {
       router.push("/movies");
     }, 800);
@@ -148,6 +208,7 @@ async function addToMyList() {
 }
 
 onMounted(loadMovie);
+
 </script>
 
 <style scoped>
