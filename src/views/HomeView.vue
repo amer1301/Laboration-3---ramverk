@@ -115,21 +115,24 @@ onMounted(() => {
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
+
 .search input {
   flex: 1 1 220px;
-  padding: 0.5rem 0.75rem;
-  border-radius: 999px;
+  padding: 1rem 0.75rem;
+  border-radius: 20px;
   border: 1px solid #374151;
   background: #020617;
   color: #f5f5f5;
+  font-size: 1em;
 }
 .search button {
   padding: 0.5rem 1rem;
-  border-radius: 999px;
+  border-radius: 20px;
   border: none;
   background: #e11d48;
   color: #f5f5f5;
   cursor: pointer;
+  font-size: 1em;
 }
 .grid {
   display: grid;

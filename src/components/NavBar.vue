@@ -47,6 +47,7 @@ const close = () => (isOpen.value = false);
 
 .nav__brand {
   font-weight: 700;
+  font-size: 1.2em;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }

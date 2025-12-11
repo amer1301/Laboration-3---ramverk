@@ -7,6 +7,13 @@
         Utforska läskiga filmer, betygsätt dem och håll koll på dina favoriter.
         Backend drivs av Fastify + PostgreSQL, bilder och info från TMDb.
       </p>
+      <p>I enlighet med uppgiftsbeskrivningen för laboration 3 i kursen 
+      Fullstack-utveckling med ramverk D2255, så har jag valt att skapa en
+      applikation i form av ett arkiv för skräckfilmer. Ett av mina fritids-
+      intressen är att kolla skräckfilm, just för att 98% av alla skräckfilmer
+      varken är läskiga eller bra, så är det fantastiskt när man väl hittar en
+      som man gillar. Därför har jag skapat detta arkivet för att hålla koll på 
+      vilka filmer som jag vill se, har sett samt vilka som faktiskt var bra/läskiga.</p>
     </div>
 
     <!-- Hero-bild med backdrop från Hereditary -->
