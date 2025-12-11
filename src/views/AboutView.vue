@@ -2,8 +2,7 @@
   <section>
     <h1>Mina tankar om Vue.js</h1>
     <p>
-      Här skriver jag en kort sammanfattning om hur det var att komma igång
-      med Vue, vad som var svårt/lätt osv.
+      Kort sammanfattning om mina tankar kring arbetet med Vue
     </p>
 
     <ul class="list">
