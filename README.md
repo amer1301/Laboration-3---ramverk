@@ -25,6 +25,7 @@ npm run preview
 Applikationen är uppbyggd med flera Vue-komponenter och vyer som strukturerar gränssnittet och funktionaliteten.
 
 🔹 **Komponenter**
+
 NavBar.vue
 Huvudnavigationen med länkar till startsida, filmsida och ”Om”-sida. Använder <RouterLink> från Vue Router.
 
@@ -44,6 +45,7 @@ SiteFooter.vue
 En enkel och ren sidfot med grundläggande projektreferenser.
 
 🔹 **Vyer**
+
 HomeView.vue
 Startsidan. Innehåller hero-sektionen och ett sökfält som låter användaren söka filmer via TMDb. Resultaten visas via TmdbMovieCard.
 
