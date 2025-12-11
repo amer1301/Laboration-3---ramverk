@@ -51,7 +51,7 @@ MoviesView.vue
 Administrativ vy där användaren kan:
 * Lägga till filmer via MovieForm
 * Lista dem i MovieTable
-*Hantera det lokala filmregistret
+* Hantera det lokala filmregistret
 
 TmdbMovieView.vue
 Detaljerad sida för en film hämtad från TMDb. Visar titel, poster, tagline, betyg och övrig metadata.
