@@ -1,8 +1,8 @@
 # Laboration 3 - ramverk
 
-This template should help get you started developing with Vue 3 in Vite.
+En filmapplikation byggd med Vue 3, Vue Router och Vite. Projektet demonstrerar komponentbaserad utveckling, API-integration (TMDb), formulärhantering och dynamisk navigering.
 
-## Recommended IDE Setup
+## Movie App – Vue 3 + Vite
 
 [VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 

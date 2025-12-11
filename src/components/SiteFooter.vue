@@ -2,8 +2,8 @@
   <footer class="footer">
     <p>Horror Hub – skräckfilmsintresse</p>
     <p class="footer__small">
-      This product uses the TMDb API but is not endorsed or certified by TMDb.
-    </p>
+      Laboration 3 - Skapa webbapplikation med Vue.js</p>
+    <p class="footer__small">Copyright © Amanda Persdotter</p>
   </footer>
 </template>
 

@@ -1,4 +1,11 @@
 <template>
+ <!--
+    Huvudnavigationen för appen.
+    Består av:
+    - Brand-text
+    - En hamburgermenyn (på mobil)
+    - Navigation med RouterLink-länkar
+  -->
   <header class="nav">
     <div class="nav__brand">Horror Hub</div>
     <button class="nav__toggle" @click="isOpen = !isOpen">☰</button>
@@ -15,7 +22,16 @@
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 
+/*
+  isOpen styr om mobilmenyn visas eller inte.
+  true = synlig, false = dold.
+*/
 const isOpen = ref(false);
+
+/*
+  close() används när man klickar på en länk
+  så att menyn stängs på mobila enheter.
+*/
 const close = () => (isOpen.value = false);
 </script>
 
@@ -24,13 +40,14 @@ const close = () => (isOpen.value = false);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
+  padding: 1.5em 1em;
   background: #090914;
   border-bottom: 1px solid #262636;
 }
 
 .nav__brand {
   font-weight: 700;
+  font-size: 1.2em;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -43,9 +60,9 @@ const close = () => (isOpen.value = false);
 .nav__link {
   text-decoration: none;
   color: #f5f5f5;
-  padding: 0.25rem 0.5rem;
+  padding: 0.75em 1em;
   border-radius: 999px;
-  font-size: 0.95rem;
+  font-size: 1.2em;
 }
 
 .nav__link.router-link-active {
